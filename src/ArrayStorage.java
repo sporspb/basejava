@@ -6,31 +6,27 @@ public class ArrayStorage {
     private int size = 0;
 
     void clear() {
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                storage[i] = null;
-            }
-            size = 0;
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
         }
+        size = 0;
     }
 
-    void save(Resume input) {
+    void save(Resume resume) {
         for (int i = 0; i < size; i++) {
-            Resume resume = storage[i];
-            if (input.toString().equals(resume.toString())) {
+            if (resume.toString().equals(storage[i].toString())) {
                 System.out.println("Неуникальный(повторяющийся) uuid");
                 return;
             }
         }
-        storage[size] = input;
+        storage[size] = resume;
         size++;
     }
 
     Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            Resume resume = storage[i];
-            if (resume.toString().equals(uuid)) {
-                return resume;
+            if (storage[i].toString().equals(uuid)) {
+                return storage[i];
             }
         }
         return null;
@@ -38,8 +34,7 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            Resume resume = storage[i];
-            if (resume.toString().equals(uuid)) {
+            if (storage[i].toString().equals(uuid)) {
                 size--;
                 if (size - i >= 0) {
                     System.arraycopy(storage, i + 1, storage, i, size - i);
