@@ -6,7 +6,8 @@ import com.spor.webapp.model.Resume;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private final int STORAGE_SIZE = 10000;
+    private Resume[] storage = new Resume[STORAGE_SIZE];
     private int size = 0;
 
     public void clear() {
@@ -17,44 +18,59 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (resume.toString().equals(storage[i].toString())) {
-                System.out.println("Resume already exist");
-                return;
-            }
+        int index = getMatch(resume.getUuid());
+
+        if (size == STORAGE_SIZE) {
+            System.out.println("Not enough space in storage");
+        } else if (index != -1) {
+            System.out.println("Resume already exist");
+        } else {
+            storage[size] = resume;
+            size++;
         }
-        storage[size] = resume;
-        size++;
     }
 
     public void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (resume.toString().equals(storage[i].toString())) {
-                storage[i] = resume;
-                return;
-            }
+        int index = getMatch(resume.getUuid());
+
+        if (index == -1) {
+            System.out.println("Resume not found");
+        } else {
+            storage[index] = resume;
         }
-        System.out.println("Resume not found");
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(uuid)) {
-                return storage[i];
-            }
+        int index = getMatch(uuid);
+
+        if (index == -1) {
+            System.out.println("Resume not found");
+        } else {
+            return storage[index];
         }
         return null;
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(uuid)) {
-                size--;
-                if (size - i >= 0) {
-                    System.arraycopy(storage, i + 1, storage, i, size - i);
-                }
+        int index = getMatch(uuid);
+
+        if (index == -1) {
+            System.out.println("Resume not found");
+        } else {
+            size--;
+            if (size - index >= 0) {
+                System.arraycopy(storage, index + 1, storage, index, size - index);
             }
         }
+    }
+
+    private int getMatch(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
