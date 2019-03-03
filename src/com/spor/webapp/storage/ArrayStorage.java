@@ -2,11 +2,13 @@ package com.spor.webapp.storage;
 
 import com.spor.webapp.model.Resume;
 
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private final int STORAGE_SIZE = 10_000;
+    private final static int STORAGE_SIZE = 10_000;
     private Resume[] storage = new Resume[STORAGE_SIZE];
     private int size = 0;
 
@@ -67,9 +69,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] resumes = new Resume[size];
-        System.arraycopy(storage, 0, resumes, 0, size);
-        return resumes;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
