@@ -19,12 +19,22 @@ public class ArrayStorage {
     public void save(Resume resume) {
         for (int i = 0; i < size; i++) {
             if (resume.toString().equals(storage[i].toString())) {
-                System.out.println("Неуникальный(повторяющийся) uuid");
+                System.out.println("Resume already exist");
                 return;
             }
         }
         storage[size] = resume;
         size++;
+    }
+
+    public void update(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if (resume.toString().equals(storage[i].toString())) {
+                storage[i] = resume;
+                return;
+            }
+        }
+        System.out.println("Resume not found");
     }
 
     public Resume get(String uuid) {
