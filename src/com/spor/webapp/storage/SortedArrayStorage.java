@@ -6,22 +6,29 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-    @Override
-    public void update(Resume resume) {
-
-    }
-
-    @Override
+        @Override
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
+        int insertPosition = -index - 1;
 
         if (size == STORAGE_SIZE) {
             System.out.println("Not enough space in storage");
         } else if (index >= 0) {
             System.out.println("Resume already exist");
         } else {
-            System.arraycopy(storage, index + 1, storage, index, size - index);
+            System.arraycopy(storage, insertPosition, storage, insertPosition + 1, size - insertPosition);
+            storage[insertPosition] = resume;
             size++;
+        }
+    }
+
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+
+        if (index < 0) {
+            System.out.println("Resume not found");
+        } else {
+            storage[index] = resume;
         }
     }
 
@@ -32,8 +39,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         if (index < 0) {
             System.out.println("Resume not found");
         } else {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
+            System.arraycopy(storage, index + 1, storage, index, size - index);
             size--;
         }
 

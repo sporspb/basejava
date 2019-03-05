@@ -2,12 +2,14 @@ package com.spor.webapp;
 
 import com.spor.webapp.model.Resume;
 import com.spor.webapp.storage.ArrayStorage;
+import com.spor.webapp.storage.SortedArrayStorage;
+import com.spor.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
