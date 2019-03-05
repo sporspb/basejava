@@ -7,41 +7,18 @@ import com.spor.webapp.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-
-        if (size == STORAGE_SIZE) {
-            System.out.println("Not enough space in storage");
-        } else if (index != -1) {
-            System.out.println("Resume already exist");
-        } else {
-            storage[size] = resume;
-            size++;
-        }
+    @Override
+    public void saveResume(Resume resume, int index) {
+        storage[size] = resume;
     }
 
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-
-        if (index == -1) {
-            System.out.println("Resume not found");
-        } else {
-            storage[index] = resume;
-        }
+    @Override
+    public void deleteResume(int index) {
+        storage[index] = storage[size - 1];
+        storage[size - 1] = null;
     }
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-
-        if (index == -1) {
-            System.out.println("Resume not found");
-        } else {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
-        }
-    }
-
+    @Override
     protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
