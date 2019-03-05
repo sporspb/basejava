@@ -2,19 +2,10 @@ package com.spor.webapp.storage;
 
 import com.spor.webapp.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
-
-    public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
-        size = 0;
-    }
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
@@ -49,13 +40,6 @@ public class ArrayStorage extends AbstractArrayStorage {
             storage[size - 1] = null;
             size--;
         }
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
     }
 
     protected int getIndex(String uuid) {
