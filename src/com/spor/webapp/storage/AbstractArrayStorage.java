@@ -1,5 +1,8 @@
 package com.spor.webapp.storage;
 
+import com.spor.webapp.exception.ExistStorageException;
+import com.spor.webapp.exception.NotExistStorageException;
+import com.spor.webapp.exception.StorageException;
 import com.spor.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -25,10 +28,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void save(Resume resume) {
         int index = getIndex(resume.getUuid());
 
-        if (size == STORAGE_SIZE) {
-            System.out.println("Not enough space in storage");
-        } else if (index >= 0) {
-            System.out.println("Resume already exist");
+        if (index >= 0) {
+            throw new ExistStorageException(resume.getUuid());
+        } else if (size == STORAGE_SIZE) {
+            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             saveResume(resume, index);
             size++;
@@ -39,7 +42,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void update(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index < 0) {
-            System.out.println("Resume not found");
+            throw new NotExistStorageException(resume.getUuid());
         } else {
             storage[index] = resume;
         }
@@ -50,8 +53,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
 
         if (index < 0) {
-            System.out.println("Resume not found");
-            return null;
+            throw new NotExistStorageException(uuid);
         } else {
             return storage[index];
         }
@@ -62,7 +64,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
 
         if (index < 0) {
-            System.out.println("Resume not found");
+            throw new NotExistStorageException(uuid);
         } else {
             deleteResume(index);
             storage[size - 1] = null;
