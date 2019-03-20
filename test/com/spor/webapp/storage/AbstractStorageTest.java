@@ -17,7 +17,7 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_2;
     private static final Resume RESUME_3;
     private static final Resume RESUME_4;
-    private static final Resume[] resumes;
+    protected static final Resume[] resumes;
 
     static {
         RESUME_1 = new Resume(UUID_1);
