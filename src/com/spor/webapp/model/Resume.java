@@ -11,21 +11,16 @@ public class Resume {
 
     // Unique identifier
     private final String uuid;
-    public static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
     private final String fullName;
+    public static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
-    public Resume() {
-        this(UUID.randomUUID().toString(), "fullName");
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
         this.fullName = fullName;
-    }
-
-    public Resume(String uuid) {
-        this.uuid = uuid;
-        this.fullName = "fullName";
     }
 
     public String getFullName() {
@@ -41,16 +36,16 @@ public class Resume {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        return uuid.equals(resume.uuid);
+        return fullName.equals(resume.fullName) && (uuid.equals(resume.uuid));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
+        return Objects.hash(uuid) + Objects.hash(fullName);
     }
 
     @Override
     public String toString() {
-        return uuid;
+        return uuid + " " + fullName;
     }
 }

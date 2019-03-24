@@ -22,20 +22,14 @@ public abstract class AbstractStorageTest {
     protected static final Resume RESUME_2;
     private static final Resume RESUME_3;
     protected static final Resume RESUME_4;
-    protected static final Resume[] resumes;
-    private static List<Resume> resumeList;
+    protected Storage storage;
 
     static {
         RESUME_1 = new Resume(UUID_1, "fullName4");
         RESUME_2 = new Resume(UUID_2, "fullName3");
         RESUME_3 = new Resume(UUID_3, "fullName2");
         RESUME_4 = new Resume(UUID_4, "fullName1");
-        resumes = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        resumeList = new ArrayList<>();
-        resumeList = asList(RESUME_3, RESUME_2, RESUME_1);
     }
-
-    protected Storage storage;
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -53,19 +47,19 @@ public abstract class AbstractStorageTest {
     public void save() throws Exception {
         storage.save(RESUME_4);
         Assert.assertEquals(4, storage.size());
-        Assert.assertEquals(storage.get(UUID_4), RESUME_4);
+        Assert.assertEquals(RESUME_4, storage.get(UUID_4));
     }
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() throws Exception {
-        storage.save(new Resume(UUID_2, "fullName2"));
+        storage.save(RESUME_2);
     }
 
     @Test
     public void update() throws Exception {
         Resume resume = new Resume(UUID_2, "fullName2");
         storage.update(resume);
-        Assert.assertSame(storage.get(UUID_2), resume);
+        Assert.assertSame(resume, storage.get(UUID_2));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -87,7 +81,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() throws Exception {
-        Assert.assertEquals(storage.get(UUID_2), RESUME_2);
+        Assert.assertEquals(RESUME_2, storage.get(UUID_2));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -97,6 +91,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() throws Exception {
+        List<Resume> resumeList = new ArrayList<>(asList(RESUME_3, RESUME_2, RESUME_1));
         List<Resume> getAllResumes = storage.getAllSorted();
         Assert.assertEquals(resumeList, getAllResumes);
     }
