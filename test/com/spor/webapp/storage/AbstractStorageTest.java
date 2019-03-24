@@ -15,13 +15,13 @@ import static java.util.Arrays.asList;
 public abstract class AbstractStorageTest {
 
     private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
+    protected static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
+    protected static final String UUID_4 = "uuid4";
     private static final Resume RESUME_1;
-    private static final Resume RESUME_2;
+    protected static final Resume RESUME_2;
     private static final Resume RESUME_3;
-    private static final Resume RESUME_4;
+    protected static final Resume RESUME_4;
     protected static final Resume[] resumes;
     private static List<Resume> resumeList;
 
