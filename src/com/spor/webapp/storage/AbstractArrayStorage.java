@@ -4,6 +4,7 @@ import com.spor.webapp.exception.StorageException;
 import com.spor.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final static int STORAGE_SIZE = 10_000;
@@ -53,8 +54,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     @Override
-    public final Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public final List<Resume> getAllSorted() {
+        List<Resume> resumeList = Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+        resumeList.sort(Resume.RESUME_COMPARATOR);
+        return resumeList;
     }
 
     @Override

@@ -7,6 +7,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+
 public abstract class AbstractStorageTest {
 
     private static final String UUID_1 = "uuid1";
@@ -18,13 +23,16 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_3;
     private static final Resume RESUME_4;
     protected static final Resume[] resumes;
+    private static List<Resume> resumeList;
 
     static {
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
-        RESUME_4 = new Resume(UUID_4);
+        RESUME_1 = new Resume(UUID_1, "fullName4");
+        RESUME_2 = new Resume(UUID_2, "fullName3");
+        RESUME_3 = new Resume(UUID_3, "fullName2");
+        RESUME_4 = new Resume(UUID_4, "fullName1");
         resumes = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
+        resumeList = new ArrayList<>();
+        resumeList = asList(RESUME_3, RESUME_2, RESUME_1);
     }
 
     protected Storage storage;
@@ -50,12 +58,12 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() throws Exception {
-        storage.save(new Resume(UUID_2));
+        storage.save(new Resume(UUID_2, "fullName2"));
     }
 
     @Test
     public void update() throws Exception {
-        Resume resume = new Resume(UUID_2);
+        Resume resume = new Resume(UUID_2, "fullName2");
         storage.update(resume);
         Assert.assertSame(storage.get(UUID_2), resume);
     }
@@ -88,9 +96,9 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() throws Exception {
-        Resume[] getAllResumes = storage.getAll();
-        Assert.assertArrayEquals(resumes, getAllResumes);
+    public void getAllSorted() throws Exception {
+        List<Resume> getAllResumes = storage.getAllSorted();
+        Assert.assertEquals(resumeList, getAllResumes);
     }
 
     @Test
