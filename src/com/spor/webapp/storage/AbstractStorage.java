@@ -46,6 +46,7 @@ public abstract class AbstractStorage implements Storage {
         doDelete(key);
     }
 
+    @Override
     public final List<Resume> getAllSorted() {
         List<Resume> resumeList = getResumeList();
         resumeList.sort(Resume.RESUME_COMPARATOR);

@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -91,7 +90,8 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() throws Exception {
-        List<Resume> resumeList = new ArrayList<>(asList(RESUME_3, RESUME_2, RESUME_1));
+        List<Resume> resumeList = asList(RESUME_1, RESUME_2, RESUME_3);
+        resumeList.sort(Resume.RESUME_COMPARATOR);
         List<Resume> getAllResumes = storage.getAllSorted();
         Assert.assertEquals(resumeList, getAllResumes);
     }
