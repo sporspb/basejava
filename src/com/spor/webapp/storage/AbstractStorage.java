@@ -5,8 +5,11 @@ import com.spor.webapp.exception.NotExistStorageException;
 import com.spor.webapp.model.Resume;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
+
+    private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
     protected abstract void doSave(Resume resume, SK key);
 
@@ -24,30 +27,35 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     @Override
     public void update(Resume resume) {
+        LOG.info("Update" + resume);
         SK key = getExistKey(resume.getUuid());
         doUpdate(resume, key);
     }
 
     @Override
     public void save(Resume resume) {
+        LOG.info("Save" + resume);
         SK key = getNotExistKey(resume.getUuid());
         doSave(resume, key);
     }
 
     @Override
     public Resume get(String uuid) {
+        LOG.info("Get" + uuid);
         SK key = getExistKey(uuid);
         return doGet(key);
     }
 
     @Override
     public void delete(String uuid) {
+        LOG.info("Delete" + uuid);
         SK key = getExistKey(uuid);
         doDelete(key);
     }
 
     @Override
     public final List<Resume> getAllSorted() {
+        LOG.info("getAllSorted");
         List<Resume> resumeList = getResumeList();
         resumeList.sort(Resume.RESUME_COMPARATOR);
         return resumeList;
@@ -56,6 +64,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     private SK getExistKey(String uuid) {
         SK key = getSearchKey(uuid);
         if (!checkKeyExist(key)) {
+            LOG.warning("Resume " + uuid + " not exist");
             throw new NotExistStorageException(uuid);
         }
         return key;
@@ -64,6 +73,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     private SK getNotExistKey(String uuid) {
         SK key = getSearchKey(uuid);
         if (checkKeyExist(key)) {
+            LOG.warning("Resume " + uuid + " already exist");
             throw new ExistStorageException(uuid);
         }
         return key;
