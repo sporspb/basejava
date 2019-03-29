@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractMapStorage extends AbstractStorage {
+public abstract class AbstractMapStorage<SK> extends AbstractStorage<SK> {
 
     Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected void doSave(Resume resume, Object key) {
+    protected void doSave(Resume resume, SK key) {
         storage.put(resume.getUuid(), resume);
     }
 

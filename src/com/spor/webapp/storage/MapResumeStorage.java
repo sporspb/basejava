@@ -2,35 +2,35 @@ package com.spor.webapp.storage;
 
 import com.spor.webapp.model.Resume;
 
-public class MapResumeStorage extends AbstractMapStorage {
+public class MapResumeStorage extends AbstractMapStorage<Resume> {
 
     @Override
-    protected void doSave(Resume resume, Object key) {
+    protected void doSave(Resume resume, Resume key) {
         storage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object key) {
+    protected void doUpdate(Resume resume, Resume key) {
         storage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected Resume doGet(Object key) {
-        return (Resume) key;
+    protected Resume doGet(Resume key) {
+        return key;
     }
 
     @Override
-    protected void doDelete(Object key) {
+    protected void doDelete(Resume key) {
         storage.values().remove(key);
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Resume getSearchKey(String uuid) {
         return storage.get(uuid);
     }
 
     @Override
-    protected boolean checkKeyExist(Object key) {
+    protected boolean checkKeyExist(Resume key) {
         return storage.containsValue(key);
     }
 }

@@ -6,7 +6,7 @@ import com.spor.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected final static int STORAGE_SIZE = 10_000;
 
     protected Resume[] storage = new Resume[STORAGE_SIZE];
@@ -24,28 +24,28 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final void doSave(Resume resume, Object key) {
+    protected final void doSave(Resume resume, Integer key) {
         if (size == STORAGE_SIZE) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            saveResume(resume, (Integer) key);
+            saveResume(resume, key);
             size++;
         }
     }
 
     @Override
-    protected final void doUpdate(Resume resume, Object key) {
-        storage[(int) key] = resume;
+    protected final void doUpdate(Resume resume, Integer key) {
+        storage[key] = resume;
     }
 
     @Override
-    protected final Resume doGet(Object key) {
-        return storage[(int) key];
+    protected final Resume doGet(Integer key) {
+        return storage[key];
     }
 
     @Override
-    protected final void doDelete(Object key) {
-        deleteResume((Integer) key);
+    protected final void doDelete(Integer key) {
+        deleteResume(key);
         storage[size - 1] = null;
         size--;
     }
@@ -59,8 +59,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean checkKeyExist(Object key) {
-        return (Integer) key >= 0;
+    protected boolean checkKeyExist(Integer key) {
+        return key >= 0;
     }
 
     protected abstract void saveResume(Resume resume, int index);
