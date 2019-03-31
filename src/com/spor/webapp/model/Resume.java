@@ -1,8 +1,6 @@
 package com.spor.webapp.model;
 
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Initial resume class
@@ -13,6 +11,9 @@ public class Resume {
     private final String uuid;
     private final String fullName;
     public static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+
+    private Map<ContactType, ContactData> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, AbstractSectionData> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -33,6 +34,22 @@ public class Resume {
         return uuid;
     }
 
+    public void setContacts(ContactType type, ContactData data) {
+        contacts.put(type, data);
+    }
+
+    public void setSections(SectionType type, AbstractSectionData data) {
+        sections.put(type, data);
+    }
+
+    public Map<ContactType, ContactData> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, AbstractSectionData> getSections() {
+        return sections;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,6 +65,6 @@ public class Resume {
 
     @Override
     public String toString() {
-        return uuid + " " + fullName;
+        return uuid + " " + fullName + " " + contacts + " " + sections;
     }
 }
