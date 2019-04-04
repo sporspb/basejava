@@ -1,6 +1,9 @@
 package com.spor.webapp.model;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
@@ -10,10 +13,9 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
-    public static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
-    private Map<ContactType, ContactData> contacts = new EnumMap<>(ContactType.class);
-    private Map<SectionType, AbstractSectionData> sections = new EnumMap<>(SectionType.class);
+    private Map<ContactType, Link> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -34,19 +36,19 @@ public class Resume {
         return uuid;
     }
 
-    public void setContacts(ContactType type, ContactData data) {
+    public void setContacts(ContactType type, Link data) {
         contacts.put(type, data);
     }
 
-    public void setSections(SectionType type, AbstractSectionData data) {
+    public void setSections(SectionType type, AbstractSection data) {
         sections.put(type, data);
     }
 
-    public Map<ContactType, ContactData> getContacts() {
+    public Map<ContactType, Link> getContacts() {
         return contacts;
     }
 
-    public Map<SectionType, AbstractSectionData> getSections() {
+    public Map<SectionType, AbstractSection> getSections() {
         return sections;
     }
 

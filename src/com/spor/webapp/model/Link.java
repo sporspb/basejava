@@ -1,5 +1,7 @@
 package com.spor.webapp.model;
 
+import java.util.Objects;
+
 public class Link {
 
     private String text;
@@ -24,5 +26,19 @@ public class Link {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Link)) return false;
+        Link link = (Link) o;
+        return Objects.equals(getText(), link.getText()) &&
+                Objects.equals(getValue(), link.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getText(), getValue());
     }
 }

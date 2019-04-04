@@ -4,10 +4,13 @@ import com.spor.webapp.exception.ExistStorageException;
 import com.spor.webapp.exception.NotExistStorageException;
 import com.spor.webapp.model.Resume;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
+
+    public static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
@@ -57,7 +60,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     public final List<Resume> getAllSorted() {
         LOG.info("getAllSorted");
         List<Resume> resumeList = getResumeList();
-        resumeList.sort(Resume.RESUME_COMPARATOR);
+        resumeList.sort(RESUME_COMPARATOR);
         return resumeList;
     }
 

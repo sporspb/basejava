@@ -1,8 +1,9 @@
 package com.spor.webapp.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class Data {
+public class Place {
 
     private Link link;
     private LocalDate startDate;
@@ -10,7 +11,7 @@ public class Data {
     private String title;
     private String description;
 
-    public Data(Link link, LocalDate startDate, LocalDate endDate, String title, String description) {
+    public Place(Link link, LocalDate startDate, LocalDate endDate, String title, String description) {
         this.link = link;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -56,5 +57,22 @@ public class Data {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Place)) return false;
+        Place place = (Place) o;
+        return Objects.equals(getLink(), place.getLink()) &&
+                Objects.equals(getStartDate(), place.getStartDate()) &&
+                Objects.equals(getEndDate(), place.getEndDate()) &&
+                Objects.equals(getTitle(), place.getTitle()) &&
+                Objects.equals(getDescription(), place.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getLink(), getStartDate(), getEndDate(), getTitle(), getDescription());
     }
 }
