@@ -32,7 +32,7 @@ public class ResumeTestData {
         achievements.add("Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django). ");
         achievements.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
 
-        resume.setSections(ACHIEVEMENT, new ListSection(achievements));
+        resume.setSections(ACHIEVEMENT, new TextListSection(achievements));
 
         List<String> qualifications = new ArrayList<>();
         qualifications.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2 ");
@@ -53,7 +53,7 @@ public class ResumeTestData {
         qualifications.add("программирования ");
         qualifications.add("Родной русский, английский \"upper intermediate\"");
 
-        resume.setSections(QUALIFICATIONS, new ListSection(qualifications));
+        resume.setSections(QUALIFICATIONS, new TextListSection(qualifications));
 
         List<Place> experience = new ArrayList<>();
         experience.add(new Place(
@@ -114,7 +114,7 @@ public class ResumeTestData {
                 "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."
         ));
 
-        resume.setSections(EXPERIENCE, new ListSection(experience));
+        resume.setSections(EXPERIENCE, new PlaceListSection(experience));
 
         List<Place> education = new ArrayList<>();
         education.add(new Place(
@@ -167,6 +167,6 @@ public class ResumeTestData {
                 ""
         ));
 
-        resume.setSections(SectionType.EDUCATION, new ListSection(education));
+        resume.setSections(SectionType.EDUCATION, new PlaceListSection(education));
     }
 }
