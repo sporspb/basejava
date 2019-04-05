@@ -9,18 +9,19 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static com.spor.webapp.storage.AbstractStorage.RESUME_COMPARATOR;
 import static java.util.Arrays.asList;
 
 public abstract class AbstractStorageTest {
 
     private static final String UUID_1 = "uuid1";
-    protected static final String UUID_2 = "uuid2";
+    private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
-    protected static final String UUID_4 = "uuid4";
+    private static final String UUID_4 = "uuid4";
     private static final Resume RESUME_1;
-    protected static final Resume RESUME_2;
+    private static final Resume RESUME_2;
     private static final Resume RESUME_3;
-    protected static final Resume RESUME_4;
+    private static final Resume RESUME_4;
     protected Storage storage;
 
     static {
@@ -91,7 +92,7 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAllSorted() throws Exception {
         List<Resume> resumeList = asList(RESUME_1, RESUME_2, RESUME_3);
-        resumeList.sort(Resume.RESUME_COMPARATOR);
+        resumeList.sort(RESUME_COMPARATOR);
         List<Resume> getAllResumes = storage.getAllSorted();
         Assert.assertEquals(resumeList, getAllResumes);
     }

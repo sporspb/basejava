@@ -55,14 +55,17 @@ public class Resume {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Resume)) return false;
         Resume resume = (Resume) o;
-        return fullName.equals(resume.fullName) && (uuid.equals(resume.uuid));
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid) + Objects.hash(fullName);
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 
     @Override
