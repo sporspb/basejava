@@ -4,28 +4,37 @@ import java.util.Objects;
 
 public class Link {
 
-    private String text;
-    private String value;
+    private String name;
+    private String url;
 
-    public Link(String text, String value) {
-        this.text = text;
-        this.value = value;
+    public Link(String name, String url) {
+        Objects.requireNonNull(name, "name must not be nulll");
+        this.name = name;
+        this.url = url;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getUrl() {
+        return url;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public String toString() {
+        return "Link{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 
     @Override
@@ -33,12 +42,12 @@ public class Link {
         if (this == o) return true;
         if (!(o instanceof Link)) return false;
         Link link = (Link) o;
-        return Objects.equals(getText(), link.getText()) &&
-                Objects.equals(getValue(), link.getValue());
+        return Objects.equals(getName(), link.getName()) &&
+                Objects.equals(getUrl(), link.getUrl());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getText(), getValue());
+        return Objects.hash(getName(), getUrl());
     }
 }

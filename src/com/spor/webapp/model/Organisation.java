@@ -3,7 +3,7 @@ package com.spor.webapp.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Place {
+public class Organisation {
 
     private Link link;
     private LocalDate startDate;
@@ -11,7 +11,10 @@ public class Place {
     private String title;
     private String description;
 
-    public Place(Link link, LocalDate startDate, LocalDate endDate, String title, String description) {
+    public Organisation(Link link, LocalDate startDate, LocalDate endDate, String title, String description) {
+        Objects.requireNonNull(startDate, "startDate must not be null");
+        Objects.requireNonNull(endDate, "endDate must not be null");
+        Objects.requireNonNull(title, "title must not be null");
         this.link = link;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -60,15 +63,26 @@ public class Place {
     }
 
     @Override
+    public String toString() {
+        return "Organisation{" +
+                "link=" + link +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Place)) return false;
-        Place place = (Place) o;
-        return Objects.equals(getLink(), place.getLink()) &&
-                Objects.equals(getStartDate(), place.getStartDate()) &&
-                Objects.equals(getEndDate(), place.getEndDate()) &&
-                Objects.equals(getTitle(), place.getTitle()) &&
-                Objects.equals(getDescription(), place.getDescription());
+        if (!(o instanceof Organisation)) return false;
+        Organisation organisation = (Organisation) o;
+        return Objects.equals(getLink(), organisation.getLink()) &&
+                Objects.equals(getStartDate(), organisation.getStartDate()) &&
+                Objects.equals(getEndDate(), organisation.getEndDate()) &&
+                Objects.equals(getTitle(), organisation.getTitle()) &&
+                Objects.equals(getDescription(), organisation.getDescription());
     }
 
     @Override
