@@ -30,7 +30,7 @@ public class MapResumeStorage extends AbstractMapStorage<Resume> {
     }
 
     @Override
-    protected boolean checkKeyExist(Resume key) {
+    protected boolean isExist(Resume key) {
         return storage.containsValue(key);
     }
 }

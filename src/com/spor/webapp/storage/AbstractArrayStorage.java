@@ -59,7 +59,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected boolean checkKeyExist(Integer key) {
+    protected boolean isExist(Integer key) {
         return key >= 0;
     }
 
