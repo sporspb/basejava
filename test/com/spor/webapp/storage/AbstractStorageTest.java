@@ -7,12 +7,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.List;
 
 import static com.spor.webapp.storage.AbstractStorage.RESUME_COMPARATOR;
 import static java.util.Arrays.asList;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("C:\\Users\\Spor\\IdeaProjects\\storage");
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -59,7 +61,7 @@ public abstract class AbstractStorageTest {
     public void update() throws Exception {
         Resume resume = new Resume(UUID_2, "fullName2");
         storage.update(resume);
-        Assert.assertSame(resume, storage.get(UUID_2));
+        Assert.assertEquals(resume, storage.get(UUID_2));
     }
 
     @Test(expected = NotExistStorageException.class)

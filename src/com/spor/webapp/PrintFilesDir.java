@@ -6,18 +6,19 @@ public class PrintFilesDir {
     public static void main(String[] args) {
         File projectDir = new File(System.getProperty("user.dir"));
         System.out.println(projectDir);
-        printFile(projectDir);
+        printFile(projectDir, "");
     }
 
-    public static void printFile(File directory) {
+    public static void printFile(File directory, String indent) {
         File[] files = directory.listFiles();
 
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    printFile(file);
+                    System.out.println(indent + "[" + file.getName() + "]");
+                    printFile(file, indent + "\t");
                 } else if (file.isFile()) {
-                    System.out.println(file.getName());
+                    System.out.println(indent + file.getName());
                 }
             }
         }
