@@ -1,9 +1,11 @@
 package com.spor.webapp.storage;
 
+import com.spor.webapp.storage.Serializer.ObjectStreamSerializer;
+
 public class ObjectStreamFileStorageTest extends AbstractStorageTest {
 
     public ObjectStreamFileStorageTest() {
-        super(new FileStorage(STORAGE_DIR, new ObjectStreamStorage()));
+        super(new FileStorage(STORAGE_DIR, new ObjectStreamSerializer()));
     }
 
 }

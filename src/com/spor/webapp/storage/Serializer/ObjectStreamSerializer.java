@@ -1,11 +1,11 @@
-package com.spor.webapp.storage;
+package com.spor.webapp.storage.Serializer;
 
 import com.spor.webapp.exception.StorageException;
 import com.spor.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage implements Strategy {
+public class ObjectStreamSerializer implements SerializeStrategy {
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {

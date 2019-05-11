@@ -1,4 +1,4 @@
-package com.spor.webapp.storage;
+package com.spor.webapp.storage.Serializer;
 
 import com.spor.webapp.model.Resume;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public interface Strategy {
+public interface SerializeStrategy {
 
     void doWrite(Resume resume, OutputStream os) throws IOException;
 
