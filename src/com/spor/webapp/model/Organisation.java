@@ -1,15 +1,23 @@
 package com.spor.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organisation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Link link;
     private List<Position> positionList;
+
+    public Organisation() {
+    }
 
     public Organisation(Link link, Position... positions) {
         Objects.requireNonNull(positions, "activities must not be null");
@@ -31,5 +39,19 @@ public class Organisation implements Serializable {
 
     public void setPositionList(List<Position> positionList) {
         this.positionList = positionList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Organisation)) return false;
+        Organisation that = (Organisation) o;
+        return Objects.equals(getLink(), that.getLink()) &&
+                Objects.equals(getPositionList(), that.getPositionList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getLink(), getPositionList());
     }
 }

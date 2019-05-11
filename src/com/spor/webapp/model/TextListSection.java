@@ -1,11 +1,19 @@
 package com.spor.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class TextListSection extends AbstractSection {
 
     private List<String> List;
+
+    public TextListSection() {
+    }
+
+    public TextListSection(String... items) {
+        this(Arrays.asList(items));
+    }
 
     public TextListSection(List<String> List) {
         this.List = List;

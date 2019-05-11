@@ -2,14 +2,17 @@ package com.spor.webapp.storage;
 
 import com.spor.webapp.exception.ExistStorageException;
 import com.spor.webapp.exception.NotExistStorageException;
-import com.spor.webapp.model.Resume;
+import com.spor.webapp.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 
+import static com.spor.webapp.model.ContactType.*;
+import static com.spor.webapp.model.SectionType.*;
 import static com.spor.webapp.storage.AbstractStorage.RESUME_COMPARATOR;
 import static java.util.Arrays.asList;
 
@@ -27,10 +30,31 @@ public abstract class AbstractStorageTest {
     protected Storage storage;
 
     static {
-        RESUME_1 = new Resume(UUID_1, "fullName4");
-        RESUME_2 = new Resume(UUID_2, "fullName3");
-        RESUME_3 = new Resume(UUID_3, "fullName2");
-        RESUME_4 = new Resume(UUID_4, "fullName1");
+        RESUME_1 = new Resume(UUID_1, "fullName1");
+        RESUME_2 = new Resume(UUID_2, "fullName2");
+        RESUME_3 = new Resume(UUID_3, "fullName3");
+        RESUME_4 = new Resume(UUID_4, "fullName4");
+
+        RESUME_1.setContacts(PHONE, new Link("+7(921) 855-0482", ""));
+        RESUME_1.setContacts(SKYPE, new Link("grigory.kislin", "skype:grigory.kislin"));
+        RESUME_1.setContacts(MAIL, new Link("gkislin@yandex.ru", "mailto:gkislin@yandex.ru"));
+        RESUME_1.setContacts(PROFILE, new Link("LinkedIn", "https://www.linkedin.com/in/gkislin"));
+        RESUME_1.setContacts(LINK, new Link("Домашняя страница", "http://gkislin.ru/"));
+        RESUME_1.setSections(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+        RESUME_1.setSections(PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+        RESUME_1.setSections(ACHIEVEMENT, new TextListSection("Реализация протоколов по приему платежей."));
+        RESUME_1.setSections(QUALIFICATIONS, new TextListSection("MySQL, SQLite, MS SQL, HSQLDB "));
+        RESUME_1.setSections(EXPERIENCE, new OrganisationSection(
+                new Organisation(
+                        new Link("Alcatel", "http://www.alcatel.ru/"),
+                        new Position(
+                                LocalDate.of(1997, 9, 1),
+                                LocalDate.of(2005, 1, 1),
+                                "Инженер по аппаратному и программному тестированию",
+                                "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."
+
+                        ))));
+
     }
 
     public AbstractStorageTest(Storage storage) {

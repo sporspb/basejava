@@ -1,11 +1,19 @@
 package com.spor.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class OrganisationSection extends AbstractSection {
 
     private List<Organisation> organisations;
+
+    public OrganisationSection() {
+    }
+
+    public OrganisationSection(Organisation... organizations) {
+        this(Arrays.asList(organizations));
+    }
 
     public OrganisationSection(List<Organisation> organisations) {
         Objects.requireNonNull(organisations, "organizations must not be null");
