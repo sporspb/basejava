@@ -21,8 +21,17 @@ public class Organisation implements Serializable {
 
     public Organisation(Link link, Position... positions) {
         Objects.requireNonNull(positions, "activities must not be null");
+        Objects.requireNonNull(positions, "positions must not be null");
+        this.link = link;
         this.link = link;
         this.positionList = Arrays.asList(positions);
+        this.positionList = Arrays.asList(positions);
+    }
+
+    public Organisation(Link link, List<Position> positionList) {
+        Objects.requireNonNull(positionList, "positions must not be null");
+        this.link = link;
+        this.positionList = positionList;
     }
 
     public Link getLink() {
