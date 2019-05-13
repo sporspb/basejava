@@ -35,4 +35,11 @@ public class TextSection extends AbstractSection {
     public int hashCode() {
         return Objects.hash(getContent());
     }
+
+    @Override
+    public String toString() {
+        return "TextSection{" +
+                "content='" + content + '\'' +
+                '}';
+    }
 }

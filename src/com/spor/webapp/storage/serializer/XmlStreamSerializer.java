@@ -1,4 +1,4 @@
-package com.spor.webapp.storage.Serializer;
+package com.spor.webapp.storage.serializer;
 
 import com.spor.webapp.model.*;
 import com.spor.webapp.util.XmlParser;

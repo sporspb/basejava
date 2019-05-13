@@ -2,7 +2,7 @@ package com.spor.webapp.storage;
 
 import com.spor.webapp.exception.StorageException;
 import com.spor.webapp.model.Resume;
-import com.spor.webapp.storage.Serializer.SerializeStrategy;
+import com.spor.webapp.storage.serializer.SerializeStrategy;
 
 import java.io.*;
 import java.util.ArrayList;

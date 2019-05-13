@@ -17,7 +17,8 @@ import static com.spor.webapp.storage.AbstractStorage.RESUME_COMPARATOR;
 import static java.util.Arrays.asList;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\Spor\\IdeaProjects\\storage");
+    protected static final File STORAGE_DIR = new File("/home/spor/IdeaProjects/storage");
+    //protected static final File STORAGE_DIR = new File("C:\\Users\\Spor\\IdeaProjects\\storage");
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";

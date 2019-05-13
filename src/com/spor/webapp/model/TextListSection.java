@@ -39,4 +39,11 @@ public class TextListSection extends AbstractSection {
     public int hashCode() {
         return Objects.hash(getList());
     }
+
+    @Override
+    public String toString() {
+        return "TextListSection{" +
+                "List=" + List +
+                '}';
+    }
 }

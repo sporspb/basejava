@@ -20,7 +20,7 @@ public class Link implements Serializable {
     public Link(String name, String url) {
         Objects.requireNonNull(name, "name must not be nulll");
         this.name = name;
-        this.url = url;
+        this.url = (url.equals("")) ? null : url;
     }
 
     public String getName() {
@@ -32,7 +32,7 @@ public class Link implements Serializable {
     }
 
     public String getUrl() {
-        return url;
+        return url == null ? "" : url;
     }
 
     public void setUrl(String url) {

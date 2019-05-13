@@ -32,7 +32,7 @@ public class Position implements Serializable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
-        this.description = description;
+        this.description = (description == null) ? "" : description;
     }
 
     public LocalDate getStartDate() {
@@ -60,7 +60,7 @@ public class Position implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return description == null ? "" : description;
     }
 
     public void setDescription(String description) {
@@ -81,5 +81,15 @@ public class Position implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(getStartDate(), getEndDate(), getTitle(), getDescription());
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

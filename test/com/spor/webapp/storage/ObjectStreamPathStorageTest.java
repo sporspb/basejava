@@ -1,7 +1,7 @@
 package com.spor.webapp.storage;
 
 
-import com.spor.webapp.storage.Serializer.ObjectStreamSerializer;
+import com.spor.webapp.storage.serializer.ObjectStreamSerializer;
 
 public class ObjectStreamPathStorageTest extends AbstractStorageTest {
     public ObjectStreamPathStorageTest() {

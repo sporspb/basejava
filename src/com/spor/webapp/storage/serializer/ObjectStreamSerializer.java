@@ -1,4 +1,4 @@
-package com.spor.webapp.storage.Serializer;
+package com.spor.webapp.storage.serializer;
 
 import com.spor.webapp.exception.StorageException;
 import com.spor.webapp.model.Resume;
