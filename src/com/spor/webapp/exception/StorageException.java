@@ -3,6 +3,10 @@ package com.spor.webapp.exception;
 public class StorageException extends RuntimeException {
     private final String uuid;
 
+    public StorageException(Exception e) {
+        this(e.getMessage(), e);
+    }
+
     public StorageException(String uuid) {
         this.uuid = uuid;
     }
