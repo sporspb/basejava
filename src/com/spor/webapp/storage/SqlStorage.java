@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -48,9 +49,12 @@ public class SqlStorage implements Storage {
                     }
                     Resume r = new Resume(uuid, rs.getString("full_name"));
                     do {
-                        String value = rs.getString("value");
-                        ContactType type = ContactType.valueOf(rs.getString("type"));
-                        r.setContacts(type, new Link(value));
+                        String typeString = rs.getString("type");
+                        if (typeString != null) {
+                            String value = rs.getString("value");
+                            ContactType type = ContactType.valueOf(typeString);
+                            r.setContacts(type, new Link(value));
+                        }
                     }
                     while (rs.next());
                     return r;
@@ -102,28 +106,20 @@ public class SqlStorage implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         LOG.info("GetAll");
-        List<Resume> resumeList = new ArrayList<>();
-        List<String> listUUID = new ArrayList<>();
+        Map<String, Resume> resumeMap = new LinkedHashMap<>();
         sqlHelper.executeQuery("SELECT * FROM resume r LEFT JOIN contact c ON r.uuid = c.resume_uuid ORDER BY r.full_name, r.uuid",
                 ps -> {
                     ResultSet rs = ps.executeQuery();
-                    Resume r = new Resume();
                     while (rs.next()) {
                         String uuid = rs.getString("uuid").trim();
                         String type = rs.getString("type").trim();
                         String value = rs.getString("value").trim();
-                        if (listUUID.contains(uuid)) {
-                            r.setContacts(ContactType.valueOf(type), new Link(value));
-                        } else {
-                            r = new Resume(uuid, rs.getString("full_name").trim());
-                            r.setContacts(ContactType.valueOf(type), new Link(value));
-                            resumeList.add(r);
-                            listUUID.add(uuid);
-                        }
+                        String fullName = rs.getString("full_name").trim();
+                        resumeMap.computeIfAbsent(uuid, s -> new Resume(uuid, fullName)).setContacts(ContactType.valueOf(type), new Link(value));
                     }
                     return null;
                 });
-        return resumeList;
+        return new ArrayList<>(resumeMap.values());
     }
 
     @Override

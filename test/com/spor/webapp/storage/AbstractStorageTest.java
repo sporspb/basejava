@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import static com.spor.webapp.model.ContactType.*;
 import static com.spor.webapp.storage.AbstractStorage.RESUME_COMPARATOR;
@@ -20,10 +21,10 @@ public abstract class AbstractStorageTest {
     //protected static final File STORAGE_DIR = new File("/home/spor/IdeaProjects/storage");
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
     private static final Resume RESUME_3;
@@ -31,18 +32,18 @@ public abstract class AbstractStorageTest {
     protected Storage storage;
 
     static {
-        RESUME_1 = new Resume(UUID_1, "fullName1");
-        RESUME_2 = new Resume(UUID_2, "fullName2");
-        RESUME_3 = new Resume(UUID_3, "fullName3");
-        RESUME_4 = new Resume(UUID_4, "fullName4");
+        RESUME_1 = new Resume(UUID_1, "Fred");
+        RESUME_2 = new Resume(UUID_2, "Alice");
+        RESUME_3 = new Resume(UUID_3, "Peter");
+        RESUME_4 = new Resume(UUID_4, "Barry");
 
         RESUME_1.setContacts(PHONE, new Link("+7(921) 855-0482"));
         RESUME_2.setContacts(SKYPE, new Link("grigory.kislin"));
         RESUME_3.setContacts(MAIL, new Link("gkislin@yandex.ru"));
         RESUME_4.setContacts(PROFILE, new Link("LinkedIn"));
         RESUME_1.setContacts(LINK, new Link("Домашняя страница"));
-        /*
-        RESUME_1.setSections(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+
+        /*RESUME_1.setSections(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         RESUME_1.setSections(PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
         RESUME_1.setSections(ACHIEVEMENT, new TextListSection("Реализация протоколов по приему платежей."));
         RESUME_1.setSections(QUALIFICATIONS, new TextListSection("MySQL, SQLite, MS SQL, HSQLDB "));
@@ -86,7 +87,7 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() throws Exception {
         Resume resume = new Resume(UUID_2, "fullName2");
-        resume.setContacts(SKYPE, new Link("grigory.kislin"));
+        //resume.setContacts(SKYPE, new Link("grigory.kislin"));
         storage.update(resume);
         Assert.assertEquals(resume, storage.get(UUID_2));
     }
