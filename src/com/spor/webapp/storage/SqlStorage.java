@@ -107,15 +107,26 @@ public class SqlStorage implements Storage {
     public List<Resume> getAllSorted() {
         LOG.info("GetAll");
         Map<String, Resume> resumeMap = new LinkedHashMap<>();
-        sqlHelper.executeQuery("SELECT * FROM resume r LEFT JOIN contact c ON r.uuid = c.resume_uuid ORDER BY r.full_name, r.uuid",
+        sqlHelper.executeQuery("SELECT * FROM resume ORDER BY full_name, uuid",
                 ps -> {
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
                         String uuid = rs.getString("uuid").trim();
+                        String fullName = rs.getString("full_name").trim();
+                        resumeMap.computeIfAbsent(uuid, s -> new Resume(uuid, fullName));
+                    }
+                    return null;
+                });
+
+        sqlHelper.executeQuery("SELECT resume_uuid, type, value FROM contact",
+                ps -> {
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        String resumeUuid = rs.getString("resume_uuid");
                         String type = rs.getString("type").trim();
                         String value = rs.getString("value").trim();
-                        String fullName = rs.getString("full_name").trim();
-                        resumeMap.computeIfAbsent(uuid, s -> new Resume(uuid, fullName)).setContacts(ContactType.valueOf(type), new Link(value));
+                        Resume resume = resumeMap.get(resumeUuid);
+                        resume.setContacts(ContactType.valueOf(type), new Link(value));
                     }
                     return null;
                 });
