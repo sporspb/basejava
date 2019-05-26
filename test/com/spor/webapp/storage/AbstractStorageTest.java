@@ -5,6 +5,8 @@ import com.spor.webapp.exception.ExistStorageException;
 import com.spor.webapp.exception.NotExistStorageException;
 import com.spor.webapp.model.Link;
 import com.spor.webapp.model.Resume;
+import com.spor.webapp.model.TextListSection;
+import com.spor.webapp.model.TextSection;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.spor.webapp.model.ContactType.*;
+import static com.spor.webapp.model.SectionType.*;
 import static com.spor.webapp.storage.AbstractStorage.RESUME_COMPARATOR;
 import static java.util.Arrays.asList;
 
@@ -43,10 +46,14 @@ public abstract class AbstractStorageTest {
         RESUME_4.setContacts(PROFILE, new Link("LinkedIn"));
         RESUME_1.setContacts(LINK, new Link("Домашняя страница"));
 
-        /*RESUME_1.setSections(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-        RESUME_1.setSections(PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+        RESUME_1.setSections(OBJECTIVE, new TextSection("Ведущий по Java Web и Enterprise технологиям"));
+        RESUME_1.setSections(PERSONAL, new TextSection("Аналитический склад ума"));
         RESUME_1.setSections(ACHIEVEMENT, new TextListSection("Реализация протоколов по приему платежей."));
-        RESUME_1.setSections(QUALIFICATIONS, new TextListSection("MySQL, SQLite, MS SQL, HSQLDB "));
+        RESUME_1.setSections(QUALIFICATIONS, new TextListSection("MySQL, SQLite, MS SQL, HSQLDB"));
+        RESUME_2.setSections(OBJECTIVE, new TextSection("TEST2"));
+        RESUME_2.setSections(QUALIFICATIONS, new TextListSection("Spring, Hibernate"));
+
+        /*
         RESUME_1.setSections(EXPERIENCE, new OrganisationSection(
                 new Organisation(
                         new Link("Alcatel", "http://www.alcatel.ru/"),
