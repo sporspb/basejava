@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>resumeServlet</servlet-name>
-        <servlet-class>ru.javawebinar.basejava.web.ResumeServlet</servlet-class>
+        <servlet-class>com.spor.webapp.web.ResumeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>resumeServlet</servlet-name>

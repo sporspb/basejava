@@ -1,4 +1,4 @@
-package ru.javawebinar.basejava.web;
+package com.spor.webapp.web;
 
 import com.spor.webapp.Config;
 import com.spor.webapp.model.Resume;
@@ -28,12 +28,6 @@ public class ResumeServlet extends javax.servlet.http.HttpServlet {
         response.getWriter().write(name == null ? "Hello Resumes!" : "Hello " + name + '!');
         */
         PrintWriter out = response.getWriter();
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException(e);
-        }
 
         try {
             out.println("<!DOCTYPE html>");
