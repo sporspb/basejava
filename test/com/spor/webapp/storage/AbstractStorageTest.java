@@ -42,7 +42,9 @@ public abstract class AbstractStorageTest {
 
         RESUME_1.setContacts(PHONE, new Link("+7(921) 855-0482"));
         RESUME_2.setContacts(SKYPE, new Link("grigory.kislin"));
-        RESUME_3.setContacts(MAIL, new Link("gkislin@yandex.ru"));
+        RESUME_1.setContacts(MAIL, new Link("gkislin@yandex.ru"));
+        RESUME_2.setContacts(MAIL, new Link("gkfggggin@yandex.ru"));
+        RESUME_3.setContacts(MAIL, new Link("gfdsfsd@yandex.ru"));
         RESUME_4.setContacts(PROFILE, new Link("LinkedIn"));
         RESUME_1.setContacts(LINK, new Link("Домашняя страница"));
 

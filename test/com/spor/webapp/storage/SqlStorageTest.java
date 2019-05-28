@@ -4,6 +4,6 @@ import com.spor.webapp.Config;
 
 public class SqlStorageTest extends AbstractStorageTest {
     public SqlStorageTest() {
-        super(new SqlStorage(Config.get().getUrl(), Config.get().getLogin(), Config.get().getPassword()));
+        super(Config.get().getStorage());
     }
 }

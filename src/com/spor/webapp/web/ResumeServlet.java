@@ -1,19 +1,25 @@
 package com.spor.webapp.web;
 
 import com.spor.webapp.Config;
+import com.spor.webapp.model.ContactType;
 import com.spor.webapp.model.Resume;
-import com.spor.webapp.storage.SqlStorage;
 import com.spor.webapp.storage.Storage;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 public class ResumeServlet extends javax.servlet.http.HttpServlet {
-    private Storage storage = new SqlStorage(com.spor.webapp.Config.get().getUrl(), com.spor.webapp.Config.get().getLogin(), Config.get().getPassword());
+    private Storage storage; // = Config.get().getStorage();
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        storage = Config.get().getStorage();
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
@@ -40,18 +46,15 @@ public class ResumeServlet extends javax.servlet.http.HttpServlet {
             out.println("<body>");
             out.println("<h3>Resumes Table</h3>");
             out.println("</body>");
-
-            List<Resume> list = storage.getAllSorted();
-
-            out.println("<table border=\"1\">");
+            out.println("<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\">");
             out.println("<tr>");
-            out.println("<td>uuid</td>");
-            out.println("<td>fullname");
+            out.println("<th>Имя</th>");
+            out.println("<th>email</th>");
             out.println("</tr>");
-            for (Resume resume : list) {
+            for (Resume resume : storage.getAllSorted()) {
                 out.println("<tr>");
-                out.println("<td>" + resume.getUuid() + "</td>");
-                out.println("<td>" + resume.getFullName());
+                out.println("<td><a href=\"resume?uuid=" + resume.getUuid() + "\">" + resume.getFullName() + "</a></td>");
+                out.println("<td>" + resume.getContact(ContactType.MAIL).getName() + "</td>");
                 out.println("</tr>");
             }
             out.println("</table>");
