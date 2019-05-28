@@ -4,12 +4,16 @@ import com.spor.webapp.exception.NotExistStorageException;
 import com.spor.webapp.exception.StorageException;
 import com.spor.webapp.model.*;
 import com.spor.webapp.sql.SqlHelper;
+import com.spor.webapp.util.JsonParser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static java.sql.DriverManager.getConnection;
@@ -156,24 +160,11 @@ public class SqlStorage implements Storage {
 
     private void insertSection(Resume resume, Connection conn) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, value) VALUES (?,?,?)")) {
-            for (Map.Entry<SectionType, AbstractSection> entry : resume.getSections().entrySet()) {
+            for (Map.Entry<SectionType, AbstractSection> e : resume.getSections().entrySet()) {
                 ps.setString(1, resume.getUuid());
-                SectionType sectionType = entry.getKey();
-                ps.setString(2, sectionType.name());
-
-                switch (sectionType) {
-                    case PERSONAL:
-                    case OBJECTIVE:
-                        ps.setString(3, ((TextSection) entry.getValue()).getContent());
-                        break;
-                    case ACHIEVEMENT:
-                    case QUALIFICATIONS:
-                        ps.setString(3, String.join("\n", (((TextListSection) entry.getValue()).getList())));
-                        break;
-                    case EXPERIENCE:
-                    case EDUCATION:
-                        break;
-                }
+                ps.setString(2, e.getKey().name());
+                AbstractSection section = e.getValue();
+                ps.setString(3, JsonParser.write(section, AbstractSection.class));
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -184,20 +175,7 @@ public class SqlStorage implements Storage {
         String value = rs.getString("value");
         if (value != null) {
             SectionType sectionType = SectionType.valueOf(rs.getString("type"));
-            switch (sectionType) {
-                case PERSONAL:
-                case OBJECTIVE:
-                    resume.setSections(sectionType, new TextSection(value));
-                    break;
-                case ACHIEVEMENT:
-                case QUALIFICATIONS:
-                    List<String> items = Arrays.asList(value.split("\n"));
-                    resume.setSections(sectionType, new TextListSection(items));
-                    break;
-                case EXPERIENCE:
-                case EDUCATION:
-                    break;
-            }
+            resume.setSections(sectionType, JsonParser.read(value, AbstractSection.class));
         }
     }
 
