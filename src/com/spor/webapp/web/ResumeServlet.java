@@ -1,9 +1,7 @@
 package com.spor.webapp.web;
 
 import com.spor.webapp.Config;
-import com.spor.webapp.model.ContactType;
-import com.spor.webapp.model.Link;
-import com.spor.webapp.model.Resume;
+import com.spor.webapp.model.*;
 import com.spor.webapp.storage.Storage;
 
 import javax.servlet.ServletConfig;
@@ -11,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 public class ResumeServlet extends javax.servlet.http.HttpServlet {
     private Storage storage; // = Config.get().getStorage();
@@ -23,6 +22,7 @@ public class ResumeServlet extends javax.servlet.http.HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
         Resume r = storage.get(uuid);
@@ -35,6 +35,31 @@ public class ResumeServlet extends javax.servlet.http.HttpServlet {
                 r.getContacts().remove(type);
             }
         }
+
+        for (SectionType sectionType : SectionType.values()) {
+            String value = request.getParameter(sectionType.name());
+            String[] values = request.getParameterValues(sectionType.name());
+            if (value == null || value.trim().length() == 0 && values.length < 2) {
+                r.getSections().remove(sectionType);
+            } else {
+                switch (sectionType) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        r.setSections(sectionType, new TextSection(request.getParameter(sectionType.name())));
+                        break;
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        r.setSections(sectionType, new TextListSection(value.split("\r\n")));
+                        break;
+                    case EXPERIENCE:
+                    case EDUCATION:
+                        break;
+                    default:
+                        throw new IllegalArgumentException();
+                }
+            }
+        }
+
         storage.update(r);
         response.sendRedirect("resume");
     }
@@ -51,6 +76,11 @@ public class ResumeServlet extends javax.servlet.http.HttpServlet {
         switch (action) {
             case "delete":
                 storage.delete(uuid);
+                response.sendRedirect("resume");
+                return;
+            case "add":
+                r = new Resume(UUID.randomUUID().toString(), "");
+                storage.save(r);
                 response.sendRedirect("resume");
                 return;
             case "view":

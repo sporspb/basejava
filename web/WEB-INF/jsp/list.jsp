@@ -34,7 +34,10 @@
         </tr>
         </c:forEach>
     </table>
+
+    <a href="resume?uuid=${resume.uuid}&action=add" class="button">ADD NEW RESUME</a>
 </section>
+
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
