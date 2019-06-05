@@ -41,18 +41,25 @@ public abstract class AbstractStorageTest {
         RESUME_4 = new Resume(UUID_4, "Barry");
 
         RESUME_1.setContacts(PHONE, new Link("+7(921) 855-0482"));
+        RESUME_1.setContacts(MOBILE, new Link("+7(921) 0000000"));
+        RESUME_2.setContacts(MOBILE, new Link("+7(921) 9999999"));
         RESUME_2.setContacts(SKYPE, new Link("grigory.kislin"));
         RESUME_1.setContacts(MAIL, new Link("gkislin@yandex.ru"));
-        RESUME_2.setContacts(MAIL, new Link("gkfggggin@yandex.ru"));
-        RESUME_3.setContacts(MAIL, new Link("gfdsfsd@yandex.ru"));
-        RESUME_4.setContacts(PROFILE, new Link("LinkedIn"));
-        RESUME_1.setContacts(LINK, new Link("Домашняя страница"));
+        RESUME_2.setContacts(MAIL, new Link("bulkin@mail.ru"));
+        RESUME_3.setContacts(MAIL, new Link("rostov@rambler.ru"));
+        RESUME_4.setContacts(LINKEDIN, new Link("LinkedIn"));
+        RESUME_3.setContacts(LINKEDIN, new Link("LinkedIn"));
+        RESUME_2.setContacts(LINKEDIN, new Link("LinkedIn"));
+        RESUME_1.setContacts(LINKEDIN, new Link("LinkedIn"));
+        RESUME_1.setContacts(HOME_PAGE, new Link("Домашняя страница"));
 
         RESUME_1.setSections(OBJECTIVE, new TextSection("Ведущий по Java Web и Enterprise технологиям"));
         RESUME_1.setSections(PERSONAL, new TextSection("Аналитический склад ума"));
-        RESUME_1.setSections(ACHIEVEMENT, new TextListSection("Реализация протоколов по приему платежей."));
-        RESUME_1.setSections(QUALIFICATIONS, new TextListSection("MySQL, SQLite, MS SQL, HSQLDB"));
-        RESUME_2.setSections(OBJECTIVE, new TextSection("TEST2"));
+        RESUME_1.setSections(ACHIEVEMENT, new TextListSection("Реализация протоколов по приему платежей.", "Что-то"));
+        RESUME_3.setSections(ACHIEVEMENT, new TextListSection("Успех", "Что-то еще"));
+        RESUME_1.setSections(QUALIFICATIONS, new TextListSection("MySQL, SQLite, MS SQL, HSQLDB", "Spring"));
+        RESUME_3.setSections(QUALIFICATIONS, new TextListSection("Spring"));
+        RESUME_2.setSections(OBJECTIVE, new TextSection("Человек"));
         RESUME_2.setSections(QUALIFICATIONS, new TextListSection("Spring, Hibernate"));
 
         /*

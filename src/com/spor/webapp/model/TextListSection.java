@@ -42,8 +42,6 @@ public class TextListSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "TextListSection{" +
-                "List=" + List +
-                '}';
+        return String.join(System.lineSeparator(), List);
     }
 }

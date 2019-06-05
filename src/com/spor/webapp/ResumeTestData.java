@@ -30,8 +30,8 @@ public class ResumeTestData {
         RESUME_1.setContacts(PHONE, new Link("+7(921) 855-0482"));
         RESUME_2.setContacts(SKYPE, new Link("grigory.kislin"));
         RESUME_3.setContacts(MAIL, new Link("gkislin@yandex.ru"));
-        RESUME_4.setContacts(PROFILE, new Link("LinkedIn"));
-        RESUME_1.setContacts(LINK, new Link("Домашняя страница"));
+        RESUME_4.setContacts(LINKEDIN, new Link("LinkedIn"));
+        RESUME_1.setContacts(HOME_PAGE, new Link("Домашняя страница"));
 
         RESUME_1.setSections(OBJECTIVE, new TextSection("Ведущий по Java Web и Enterprise технологиям"));
         RESUME_1.setSections(PERSONAL, new TextSection("Аналитический склад ума"));

@@ -44,6 +44,10 @@ public class Resume implements Serializable {
         return uuid;
     }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public void setContacts(ContactType type, Link data) {
         contacts.put(type, data);
     }
@@ -58,6 +62,10 @@ public class Resume implements Serializable {
 
     public Link getContact(ContactType type) {
         return contacts.get(type);
+    }
+
+    public AbstractSection getSection(SectionType type) {
+        return sections.get(type);
     }
 
     public Map<SectionType, AbstractSection> getSections() {
