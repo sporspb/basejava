@@ -3,15 +3,13 @@ package com.spor.webapp.storage;
 import com.spor.webapp.Config;
 import com.spor.webapp.exception.ExistStorageException;
 import com.spor.webapp.exception.NotExistStorageException;
-import com.spor.webapp.model.Link;
-import com.spor.webapp.model.Resume;
-import com.spor.webapp.model.TextListSection;
-import com.spor.webapp.model.TextSection;
+import com.spor.webapp.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,7 +60,7 @@ public abstract class AbstractStorageTest {
         RESUME_2.setSections(OBJECTIVE, new TextSection("Человек"));
         RESUME_2.setSections(QUALIFICATIONS, new TextListSection("Spring, Hibernate"));
 
-        /*
+
         RESUME_1.setSections(EXPERIENCE, new OrganisationSection(
                 new Organisation(
                         new Link("Alcatel", "http://www.alcatel.ru/"),
@@ -73,7 +71,7 @@ public abstract class AbstractStorageTest {
                                 "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."
 
                         ))));
-*/
+
     }
 
     public AbstractStorageTest(Storage storage) {
