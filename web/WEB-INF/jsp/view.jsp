@@ -62,8 +62,11 @@
                         <jsp:useBean id="position" type="com.spor.webapp.model.Position"/>
                         <c:set var="startDate" value="${position.startDate}"/>
                         <c:set var="endDate" value="${position.endDate}"/>
+                        <c:if test="${endDate == '01/3000'}">
+                            <c:set var="endDate" value="по настоящее время"/>
+                        </c:if>
                         <li>
-                                ${organizationName}<b> : ${startDate} ... ${endDate}</b><br>
+                                ${organizationName}<b> : ${startDate} - ${endDate}</b><br>
                             <b>${position.title}</b><br>
                                 ${position.description}<p>
                         </li>
