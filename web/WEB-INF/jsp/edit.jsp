@@ -1,5 +1,6 @@
 <%@ page import="com.spor.webapp.model.ContactType" %>
 <%@ page import="com.spor.webapp.model.SectionType" %>
+<%@ page import="com.spor.webapp.util.DateUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -47,13 +48,58 @@
                 </c:when>
 
                 <c:when test="${sectionType.equals(SectionType.EXPERIENCE) || sectionType.equals(SectionType.EDUCATION)}">
+                    <dl>
+                        <dt><b>${sectionType.title}</b></dt>
+                        <c:forEach items="${(resume.getSection(sectionType)).getOrganisations()}" var="organisation"
+                                   varStatus="counter">
+                            <br>
+
+                            <dl>
+                                <dt>Название</dt>
+                                <dt><input type="text" value="${organisation.getLink().getName()}"
+                                           name="${sectionType}"></dt>
+                            </dl>
+                            <dl>
+                                <dt>Сайт</dt>
+                                <dt><input type="text" value="${organisation.getLink().getUrl()}"
+                                           name="${sectionType}url"></dt>
+                            </dl>
+
+                            <c:forEach items="${organisation.getPositionList()}" var="position">
+                                <jsp:useBean id="position" type="com.spor.webapp.model.Position"/>
+                                <dl>
+                                    <dt>От / До</dt>
+                                    <dd>
+                                        <input class="DATE" type="text" value="${DateUtil.format(position.startDate)}"
+                                               name="${sectionType}${counter.index}startDate" placeholder="MM/yyyy">
+                                        <input class="DATE" type="text" value="${DateUtil.format(position.endDate)}"
+                                               name="${sectionType}${counter.index}endDate" placeholder="MM/yyyy">
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>Должность</dt>
+                                    <dt><input type="text" value="${position.getTitle()}"
+                                               name="${sectionType}${counter.index}title"></dt>
+                                </dl>
+                                <dl>
+                                    <dt>Описание</dt>
+                                    <dd>
+                                        <textarea name="${sectionType}${counter.index}description"
+                                                  rows=5>${activity.getDescription()}</textarea>
+                                    </dd>
+                                </dl>
+                            </c:forEach>
+
+                        </c:forEach>
+                    </dl>
+
                 </c:when>
             </c:choose>
         </c:forEach>
 
         <hr>
         <button type="submit">Сохранить</button>
-        <button onclick="window.history.back()">Отменить</button>
+        <button onclick="window.history.back(); return false">Отменить</button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>

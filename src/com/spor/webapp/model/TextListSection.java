@@ -6,6 +6,8 @@ import java.util.Objects;
 
 public class TextListSection extends AbstractSection {
 
+    public static final TextListSection EMPTY = new TextListSection("");
+
     private List<String> List;
 
     public TextListSection() {

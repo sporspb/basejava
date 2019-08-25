@@ -13,6 +13,9 @@ import java.util.Objects;
 public class Organisation implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static final Organisation EMPTY = new Organisation(new Link("", ""), Position.EMPTY);
+
     private Link link;
     private List<Position> positionList;
 
